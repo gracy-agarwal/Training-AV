@@ -4,15 +4,21 @@ using UnityEngine;
 
 public class Layer {
 
-	public int numNeurons;
-	public List<Neuron> neurons = new List<Neuron>();
+	public int numberOfNeurons;
+	public List<Neuron> neurons;
 
-	public Layer(int nNeurons, int numNeuronInputs)
+	public Layer(int numberOfNeurons, int numberOfInputsPerNeuron)
 	{
-		numNeurons = nNeurons;
-		for(int i = 0; i < nNeurons; i++)
-		{
-			neurons.Add(new Neuron(numNeuronInputs));
-		}
+		InitializeVariables(numberOfNeurons);
+		InitializeNeurons(numberOfInputsPerNeuron);
 	}
+
+	private void InitializeVariables(int numberOfNeurons) => this.numberOfNeurons = numberOfNeurons;
+
+	private void InitializeNeurons(int numberOfInputsPerNeuron)
+	{
+		for(int i = 0; i < numberOfNeurons; i++)
+			neurons.Add(new Neuron(numberOfInputsPerNeuron));
+	}
+	
 }
