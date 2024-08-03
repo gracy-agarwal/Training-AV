@@ -1,41 +1,36 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using ANN_Kart.ANN;
 using UnityEngine;
 
 public class ANN
 {
-    public int numInputs;
-    public int numOutputs;
-    public int numHidden;
-    public int numNPerHidden;
-    public double alpha;
-    List<Layer> layers = new List<Layer>();
+    private ANN_Data AnnData;
+    List<Layer> layers;
 
-    public ANN(int nI, int nO, int nH, int nPH, double a)
+    public ANN(ANN_Data AnnData)
     {
-        numInputs = nI;
-        numOutputs = nO;
-        numHidden = nH;
-        numNPerHidden = nPH;
-        alpha = a;
+        this.AnnData = AnnData;
+        InitializeLayers();
+    }
 
-        if (numHidden > 0)
+    private void InitializeLayers()
+    {
+        layers = new List<Layer>();
+
+        for (int i = 1; i < AnnData.NumberOfLayers; i++)
         {
-            layers.Add(new Layer(numNPerHidden, numInputs));
-
-            for (int i = 0; i < numHidden - 1; i++)
-            {
-                layers.Add(new Layer(numNPerHidden, numNPerHidden));
-            }
-
-            layers.Add(new Layer(numOutputs, numNPerHidden));
-        }
-        else
-        {
-            layers.Add(new Layer(numOutputs, numInputs));
+            int numberOfNeuronsInLayer = AnnData.GetNumberOfNeuronAtLayer(i);
+            int numberOfNeuronsInPreviousLayer = AnnData.GetNumberOfNeuronAtLayer(i - 1);
+            Layer newLayer = new Layer(numberOfNeuronsInLayer, numberOfNeuronsInPreviousLayer);
+            layers.Add(newLayer);
         }
     }
 
+    
+    
+    
+    
     // public List<double> Train(List<double> inputValues, List<double> desiredOutput)
     // {
     //     List<double> outputValues = new List<double>();

@@ -33,7 +33,7 @@ public class Previous_Chromosome {
         return genes[pos];
     }
 
-    public void Combine(Chromosome c1, Chromosome c2)
+    public void Combine(Previous_Chromosome c1, Previous_Chromosome c2)
     {
         for(int i=0; i<chromosomeLength; i++)
         {

@@ -4,8 +4,9 @@ using UnityEngine;
 
 public class Layer {
 
-	public int numberOfNeurons;
-	public List<Neuron> neurons;
+	private int numberOfNeurons;
+	private List<Neuron> neurons;
+	public int NumberOfNeurons => numberOfNeurons;
 
 	public Layer(int numberOfNeurons, int numberOfInputsPerNeuron)
 	{
