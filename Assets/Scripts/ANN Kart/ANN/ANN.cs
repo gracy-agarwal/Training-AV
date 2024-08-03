@@ -174,20 +174,5 @@ public class ANN
             }
         }
     }
-
-    double ActivationFunction(double value)
-    {
-        return TanH(value);
-    }
-
-    double ActivationFunctionO(double value)
-    {
-        return TanH(value);
-    }
-
-    double TanH(double value)
-    {
-        double k = (double)System.Math.Exp(-2 * value);
-        return 2 / (1.0f + k) - 1;
-    }
+    
 }
