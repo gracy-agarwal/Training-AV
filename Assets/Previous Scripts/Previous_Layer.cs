@@ -5,14 +5,14 @@ using UnityEngine;
 public class Previous_Layer {
 
 	public int numNeurons;
-	public List<Neuron> neurons = new List<Neuron>();
+	public List<Previous_Neuron> neurons = new List<Previous_Neuron>();
 
 	public Previous_Layer(int nNeurons, int numNeuronInputs)
 	{
 		numNeurons = nNeurons;
 		for(int i = 0; i < nNeurons; i++)
 		{
-			neurons.Add(new Neuron(numNeuronInputs));
+			neurons.Add(new Previous_Neuron(numNeuronInputs));
 		}
 	}
 }

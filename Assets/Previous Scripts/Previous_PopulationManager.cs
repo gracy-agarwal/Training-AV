@@ -53,8 +53,8 @@ public class Previous_PopulationManager : MonoBehaviour {
         for(int i=0; i<5; i++)
         {
             GameObject k = Instantiate(kartPrefab, startingPos.transform.position, this.transform.rotation);
-            k.GetComponent<Brain>().Init();
-            k.GetComponent<Brain>().alive = true;
+            k.GetComponent<Previous_Brain>().Init();
+            k.GetComponent<Previous_Brain>().alive = true;
             population.Add(k);
         }
 
@@ -94,7 +94,7 @@ public class Previous_PopulationManager : MonoBehaviour {
 
 	void BreedNewPopulation()
 	{
-		List<GameObject> sortedList = population.OrderBy(o => (o.GetComponent<Brain>().overallFitness)).ToList();
+		List<GameObject> sortedList = population.OrderBy(o => (o.GetComponent<Previous_Brain>().overallFitness)).ToList();
         List<GameObject> parentpool = new List<GameObject>();
 
         population.Clear();
@@ -208,7 +208,7 @@ public class Previous_PopulationManager : MonoBehaviour {
                 {
                     for(int i=currentUnitNumber; i<currentUnitNumber+5; i++)
                     {
-                        population[i].GetComponent<Brain>().alive = false;
+                        population[i].GetComponent<Previous_Brain>().alive = false;
                     }
                     
                     currentUnitNumber = currentUnitNumber + 5;
@@ -216,8 +216,8 @@ public class Previous_PopulationManager : MonoBehaviour {
                     for (int i = 0; i < 5; i++)
                     {
                         GameObject k = Instantiate(kartPrefab, startingPos.transform.position, this.transform.rotation);
-                        k.GetComponent<Brain>().Init();
-                        k.GetComponent<Brain>().alive = true;
+                        k.GetComponent<Previous_Brain>().Init();
+                        k.GetComponent<Previous_Brain>().alive = true;
                         population.Add(k);
                     }
 
@@ -230,8 +230,8 @@ public class Previous_PopulationManager : MonoBehaviour {
                     for (int i = 0; i < 5; i++)
                     {
                         GameObject k = Instantiate(kartPrefab, startingPos.transform.position, this.transform.rotation);
-                        k.GetComponent<Brain>().Init();
-                        k.GetComponent<Brain>().alive = true;
+                        k.GetComponent<Previous_Brain>().Init();
+                        k.GetComponent<Previous_Brain>().alive = true;
                         population.Add(k);
                     }
 
@@ -249,7 +249,7 @@ public class Previous_PopulationManager : MonoBehaviour {
                     elapsed = 0;
                     for(int i=0; i<5; i++)
                     {
-                        population[i].GetComponent<Brain>().alive = true;
+                        population[i].GetComponent<Previous_Brain>().alive = true;
                     }
                 }
                 else if (ifDead())
@@ -260,7 +260,7 @@ public class Previous_PopulationManager : MonoBehaviour {
                     elapsed = 0;
                     for (int i = 0; i < 5; i++)
                     {
-                        population[i].GetComponent<Brain>().alive = true;
+                        population[i].GetComponent<Previous_Brain>().alive = true;
                     }
                 }
 
@@ -275,14 +275,14 @@ public class Previous_PopulationManager : MonoBehaviour {
                 {
                     for (int i = currentUnitNumber; i < currentUnitNumber + 5; i++)
                     {
-                        population[i].GetComponent<Brain>().alive = false;
+                        population[i].GetComponent<Previous_Brain>().alive = false;
                     }
 
                     currentUnitNumber = currentUnitNumber + 5;
 
                     for (int i = currentUnitNumber; i < currentUnitNumber + 5; i++)
                     {
-                        population[i].GetComponent<Brain>().alive = true;
+                        population[i].GetComponent<Previous_Brain>().alive = true;
                     }
 
                     elapsed = 0;
@@ -293,7 +293,7 @@ public class Previous_PopulationManager : MonoBehaviour {
 
                     for (int i = currentUnitNumber; i < currentUnitNumber + 5; i++)
                     {
-                        population[i].GetComponent<Brain>().alive = true;
+                        population[i].GetComponent<Previous_Brain>().alive = true;
                     }
 
                     elapsed = 0;
@@ -310,7 +310,7 @@ public class Previous_PopulationManager : MonoBehaviour {
                     elapsed = 0;
                     for (int i = 0; i < 5; i++)
                     {
-                        population[i].GetComponent<Brain>().alive = true;
+                        population[i].GetComponent<Previous_Brain>().alive = true;
                     }
                 }
                 else if (ifDead())
@@ -321,7 +321,7 @@ public class Previous_PopulationManager : MonoBehaviour {
                     elapsed = 0;
                     for (int i = 0; i < 5; i++)
                     {
-                        population[i].GetComponent<Brain>().alive = true;
+                        population[i].GetComponent<Previous_Brain>().alive = true;
                     }
                 }
 
@@ -368,8 +368,8 @@ public class Previous_PopulationManager : MonoBehaviour {
 
         for(int i=0; i<populationSize; i++)
         {
-            Fitness.Add(population[i].GetComponent<Brain>().overallFitness);
-            sum = sum + population[i].GetComponent<Brain>().overallFitness;
+            Fitness.Add(population[i].GetComponent<Previous_Brain>().overallFitness);
+            sum = sum + population[i].GetComponent<Previous_Brain>().overallFitness;
         }
 
         Fitness.Sort();
@@ -387,7 +387,7 @@ public class Previous_PopulationManager : MonoBehaviour {
     {
         for(int i = currentUnitNumber; i < currentUnitNumber + 5; i++)
         {
-            if(population[i].GetComponent<Brain>().alive == true)
+            if(population[i].GetComponent<Previous_Brain>().alive == true)
             {
                 return false;
             }
@@ -402,7 +402,7 @@ public class Previous_PopulationManager : MonoBehaviour {
         for(int i=0; i<populationSize; i++)
         {
             GameObject p = population[i];
-            bool a = p.GetComponent<Brain>().alive;
+            bool a = p.GetComponent<Previous_Brain>().alive;
             if(a)
             {
                 return true;
@@ -417,7 +417,7 @@ public class Previous_PopulationManager : MonoBehaviour {
         float sumOfFitness = 0;
         for(int i=0; i<parentpool.Count; i++)
         {
-            sumOfFitness = sumOfFitness + parentpool[i].GetComponent<Brain>().overallFitness;
+            sumOfFitness = sumOfFitness + parentpool[i].GetComponent<Previous_Brain>().overallFitness;
         }
 
         List<float> cdf = new List<float>();
@@ -425,7 +425,7 @@ public class Previous_PopulationManager : MonoBehaviour {
 
         for(int i=0; i<parentpool.Count; i++)
         {
-            cdf.Add(previousProbability + (parentpool[i].GetComponent<Brain>().overallFitness/sumOfFitness));
+            cdf.Add(previousProbability + (parentpool[i].GetComponent<Previous_Brain>().overallFitness/sumOfFitness));
             previousProbability = cdf[i];
         }
 
@@ -459,7 +459,7 @@ public class Previous_PopulationManager : MonoBehaviour {
         selected.Add(parentpool[r3]);
         selected.Add(parentpool[r4]);
 
-        selected = selected.OrderBy(o => o.GetComponent<Brain>().overallFitness).ToList();
+        selected = selected.OrderBy(o => o.GetComponent<Previous_Brain>().overallFitness).ToList();
 
         return selected[selected.Count - 1];
 

@@ -10,7 +10,7 @@ public class Previous_ANN
     public int numHidden;
     public int numNPerHidden;
     public double alpha;
-    List<Layer> layers = new List<Layer>();
+    List<Previous_Layer> layers = new List<Previous_Layer>();
 
     public Previous_ANN(int nI, int nO, int nH, int nPH, double a)
     {
@@ -22,18 +22,18 @@ public class Previous_ANN
 
         if (numHidden > 0)
         {
-            layers.Add(new Layer(numNPerHidden, numInputs));
+            layers.Add(new Previous_Layer(numNPerHidden, numInputs));
 
             for (int i = 0; i < numHidden - 1; i++)
             {
-                layers.Add(new Layer(numNPerHidden, numNPerHidden));
+                layers.Add(new Previous_Layer(numNPerHidden, numNPerHidden));
             }
 
-            layers.Add(new Layer(numOutputs, numNPerHidden));
+            layers.Add(new Previous_Layer(numOutputs, numNPerHidden));
         }
         else
         {
-            layers.Add(new Layer(numOutputs, numInputs));
+            layers.Add(new Previous_Layer(numOutputs, numInputs));
         }
     }
 
@@ -96,9 +96,9 @@ public class Previous_ANN
     public int getLen()
     {
         int len = 0;
-        foreach (Layer l in layers)
+        foreach (Previous_Layer l in layers)
         {
-            foreach (Neuron n in l.neurons)
+            foreach (Previous_Neuron n in l.neurons)
             {
                 foreach (double w in n.weights)
                 {
@@ -113,9 +113,9 @@ public class Previous_ANN
     public List<double> getChromosome()
     {
         List<double> c = new List<double>();
-        foreach (Layer l in layers)
+        foreach (Previous_Layer l in layers)
         {
-            foreach (Neuron n in l.neurons)
+            foreach (Previous_Neuron n in l.neurons)
             {
                 foreach (double w in n.weights)
                 {
@@ -131,9 +131,9 @@ public class Previous_ANN
     {
 
         int x = 0;
-        foreach (Layer l in layers)
+        foreach (Previous_Layer l in layers)
         {
-            foreach (Neuron n in l.neurons)
+            foreach (Previous_Neuron n in l.neurons)
             {
                 for(int i=0; i<n.weights.Count; i++)
                 {
@@ -149,9 +149,9 @@ public class Previous_ANN
     public string PrintWeights()
     {
         string weightStr = "";
-        foreach (Layer l in layers)
+        foreach (Previous_Layer l in layers)
         {
-            foreach (Neuron n in l.neurons)
+            foreach (Previous_Neuron n in l.neurons)
             {
                 foreach (double w in n.weights)
                 {
@@ -168,9 +168,9 @@ public class Previous_ANN
         if (weightStr == "") return;
         string[] weightValues = weightStr.Split(',');
         int w = 0;
-        foreach (Layer l in layers)
+        foreach (Previous_Layer l in layers)
         {
-            foreach (Neuron n in l.neurons)
+            foreach (Previous_Neuron n in l.neurons)
             {
                 for (int i = 0; i < n.weights.Count; i++)
                 {
