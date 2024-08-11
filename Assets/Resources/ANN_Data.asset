@@ -13,8 +13,12 @@ MonoBehaviour:
   m_Name: ANN_Data
   m_EditorClassIdentifier: 
   Ann_Structure:
-  - numberOfNeurons: 5
-  - numberOfNeurons: 5
-  - numberOfNeurons: 5
-  - numberOfNeurons: 2
+  - layerType: 0
+    numberOfNeurons: 5
+  - layerType: 1
+    numberOfNeurons: 5
+  - layerType: 1
+    numberOfNeurons: 5
+  - layerType: 2
+    numberOfNeurons: 2
   learningRate: 0

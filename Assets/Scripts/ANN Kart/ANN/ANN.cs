@@ -1,43 +1,38 @@
-﻿using System.Collections;
+﻿// TODO: Recreate ANN
+
+using System.Collections;
 using System.Collections.Generic;
 using ANN_Kart.ANN;
 using UnityEngine;
 
 public class ANN
 {
-    private ANN_Data AnnData;
+    private ANN_Data annData;
     List<Layer> layers;
 
-    public ANN(ANN_Data AnnData)
+    public ANN(ANN_Data annData)
     {
-        this.AnnData = AnnData;
-        InitializeLayers();
+        this.annData = annData;
+        CreateLayers();
+        InitializeNeuronsInLayers();
     }
 
-    private void InitializeLayers()
+    private void CreateLayers()
     {
         layers = new List<Layer>();
-
-        for (int i = 1; i < AnnData.NumberOfLayers; i++)
+        
+        for (int i = 0; i < annData.NumberOfLayers; i++)
         {
-            int numberOfNeuronsInLayer = AnnData.GetNumberOfNeuronAtLayer(i);
-            int numberOfNeuronsInPreviousLayer = AnnData.GetNumberOfNeuronAtLayer(i - 1);
-            Layer newLayer = new Layer(numberOfNeuronsInLayer, numberOfNeuronsInPreviousLayer);
+            Layer newLayer = new Layer(annData.GetLayerType(i), annData.GetNumberOfNeuronAtLayer(i));
             layers.Add(newLayer);
         }
     }
 
-    
-    
-    
-    
-    // public List<double> Train(List<double> inputValues, List<double> desiredOutput)
-    // {
-    //     List<double> outputValues = new List<double>();
-    //     outputValues = CalcOutput(inputValues);
-    //     UpdateWeights(outputValues, desiredOutput);
-    //     return outputValues;
-    // }
+    private void InitializeNeuronsInLayers()
+    {
+        for (int i = 0; i < layers.Count; i++)
+            layers[i].InitializeNeurons(annData.GetNumberOfInputsPerNeuronAtLayer(i));
+    }
 
     public List<double> CalcOutput(List<double> inputValues)
     {

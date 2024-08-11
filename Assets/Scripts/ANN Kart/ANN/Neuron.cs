@@ -1,34 +1,44 @@
 ﻿using System.Collections.Generic;
+using ANN_Kart.ANN;
 using UnityEngine;
 
-public class Neuron {
-
+public class Neuron
+{
+	private NeuronType neuronType;
 	private int numberOfInputs;
 	private float bias;
 	private float output;
 	private List<float> weights;
 	private List<float> inputs;
 
-	public Neuron(int numberOfInputs)
+	public Neuron(NeuronType neuronType, int numberOfInputs)
 	{
-		InitializeVariables(numberOfInputs);
+		InitializeVariables(neuronType, numberOfInputs);
 		InitializeWeights();
 		InitializeBias();
 	}
 
-	private void InitializeVariables(int numberOfInputs)
+	private void InitializeVariables(NeuronType neuronType, int numberOfInputs)
 	{
+		this.neuronType = neuronType;
 		this.numberOfInputs = numberOfInputs;
 		weights = new List<float>();
 		inputs = new List<float>();
 	}
 	
-	private void InitializeBias() => bias = Random.Range(-1f,1f);
-	
+	private void InitializeBias()
+	{
+		if (neuronType == NeuronType.INPUT)
+			return;
+		
+		bias = Random.Range(-1f,1f);
+	} 
 	private void InitializeWeights()
 	{
-		float weightRange = CalculateWeightRange();
+		if (neuronType == NeuronType.INPUT)
+			return;
 		
+		float weightRange = CalculateWeightRange();
 		for(int i = 0; i < numberOfInputs; i++)
 			weights.Add(Random.Range(-weightRange,weightRange));
 	}
