@@ -9,7 +9,9 @@ public class Layer
 	private LayerType layerType;
 	private int numberOfNeurons;
 	private List<Neuron> neurons;
+
 	public int NumberOfNeurons => numberOfNeurons;
+	public List<Neuron> Neurons => neurons;
 
 	public Layer(LayerType layerType, int numberOfNeurons) => InitializeVariables(layerType, numberOfNeurons);
 

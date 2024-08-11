@@ -11,6 +11,9 @@ public class Neuron
 	private List<float> weights;
 	private List<float> inputs;
 
+	public List<float> Weights => weights;
+	public float Bias => bias;
+
 	public Neuron(NeuronType neuronType, int numberOfInputs)
 	{
 		InitializeVariables(neuronType, numberOfInputs);
@@ -49,4 +52,8 @@ public class Neuron
 	/// </summary>
 	/// <returns></returns>
 	private float CalculateWeightRange() => (1.0f / Mathf.Sqrt(numberOfInputs));
+
+	public void SetWeightAtIndex(int weightIndex, float weightToSet) => weights[weightIndex] = weightToSet;
+
+	public void SetBias(float biasToSet) => bias = biasToSet;
 }
