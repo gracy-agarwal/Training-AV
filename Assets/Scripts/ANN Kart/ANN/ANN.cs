@@ -144,46 +144,5 @@ namespace ANN_Kart.ANN
                 }
             }
         }
-
-        public string PrintWeights()
-        {
-            string weightStr = "";
-            foreach (Layer l in layers)
-            {
-                foreach (Neuron n in l.neurons)
-                {
-                    foreach (double w in n.weights)
-                    {
-                        weightStr += w + ",";
-                    }
-
-                    weightStr += n.bias + ",";
-                }
-            }
-
-            return weightStr;
-        }
-
-        public void LoadWeights(string weightStr)
-        {
-            if (weightStr == "") return;
-            string[] weightValues = weightStr.Split(',');
-            int w = 0;
-            foreach (Layer l in layers)
-            {
-                foreach (Neuron n in l.neurons)
-                {
-                    for (int i = 0; i < n.weights.Count; i++)
-                    {
-                        n.weights[i] = Convert.ToDouble(weightValues[w]);
-                        w++;
-                    }
-
-                    n.bias = Convert.ToDouble(weightValues[w]);
-                    w++;
-                }
-            }
-        }
-
     }
 }
