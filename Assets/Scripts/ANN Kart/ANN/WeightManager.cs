@@ -40,6 +40,7 @@
                         weightStringIndex++;
                     }
                     neuron.SetBias((float)System.Convert.ToDouble(weightValues[weightStringIndex]));
+                    weightStringIndex++;
                 }
             }
         }

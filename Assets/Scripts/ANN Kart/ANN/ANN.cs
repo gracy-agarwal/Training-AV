@@ -12,7 +12,6 @@ namespace ANN_Kart.ANN
     {
         private ANN_Data annData;
         private List<Layer> layers;
-
         public List<Layer> Layers => layers;
         
         public ANN(ANN_Data annData)
@@ -39,110 +38,62 @@ namespace ANN_Kart.ANN
                 layers[i].InitializeNeurons(annData.GetNumberOfInputsPerNeuronAtLayer(i));
         }
 
-        public List<double> CalcOutput(List<double> inputValues)
+        public List<float> CalculateOutput(List<float> inputValues)
         {
-            List<double> inputs = new List<double>();
-            List<double> outputValues = new List<double>();
-            int currentInput = 0;
-
-            if (inputValues.Count != numInputs)
+            if (!IsInputCountValid(inputValues))
             {
-                Debug.Log("ERROR: Number of Inputs must be " + numInputs);
-                return outputValues;
+                Debug.LogError("Input Count Mismatch");
+                return null;
             }
 
-            inputs = new List<double>(inputValues);
-            for (int i = 0; i < numHidden + 1; i++)
+            List<float> outputValues = new List<float>();
+
+            foreach (Layer layer in layers)
             {
-                if (i > 0)
-                {
-                    inputs = new List<double>(outputValues);
-                }
-
-                outputValues.Clear();
-
-                for (int j = 0; j < layers[i].numNeurons; j++)
-                {
-                    double N = 0;
-                    layers[i].neurons[j].inputs.Clear();
-
-                    for (int k = 0; k < layers[i].neurons[j].numInputs; k++)
-                    {
-                        layers[i].neurons[j].inputs.Add(inputs[currentInput]);
-                        N += layers[i].neurons[j].weights[k] * inputs[currentInput];
-                        currentInput++;
-                    }
-
-                    N -= layers[i].neurons[j].bias;
-
-                    if (i == numHidden)
-                        layers[i].neurons[j].output = ActivationFunctionO(N);
-                    else
-                        layers[i].neurons[j].output = ActivationFunction(N);
-
-                    outputValues.Add(layers[i].neurons[j].output);
-                    currentInput = 0;
-                }
+                outputValues = layer.CalculateOutput(inputValues);
+                inputValues = outputValues;
             }
 
             return outputValues;
         }
 
-        public int getLen()
-        {
-            int len = 0;
-            foreach (Layer l in layers)
-            {
-                foreach (Neuron n in l.neurons)
-                {
-                    foreach (double w in n.weights)
-                    {
-                        len++;
-                    }
+        private bool IsInputCountValid(List<float> inputValues) => inputValues.Count == annData.GetNumberOfNeuronAtLayer(0);
 
-                    len++;
+        public List<float> GetWeightsAnsBiases()
+        {
+            List<float> weightsAndBiases = new List<float>();
+            
+            foreach (Layer layer in layers)
+            {
+                foreach (Neuron neuron in layer.Neurons)
+                {
+                    foreach (float weight in neuron.Weights)
+                        weightsAndBiases.Add(weight);
+                    weightsAndBiases.Add(neuron.Bias);
                 }
             }
-
-            return len;
+            return weightsAndBiases;
         }
 
-        public List<double> getChromosome()
+        public void SetWeightsAndBiases(List<float> weightsAndBiasesToSet)
         {
-            List<double> c = new List<double>();
-            foreach (Layer l in layers)
+            int currentIndex = 0;
+            
+            foreach (Layer layer in layers)
             {
-                foreach (Neuron n in l.neurons)
+                foreach (Neuron neuron in layer.Neurons)
                 {
-                    foreach (double w in n.weights)
+                    neuron.Weights.Clear();
+                    for (int i = 0; i < neuron.NumberOfInputs; i++)
                     {
-                        c.Add(w);
+                        neuron.Weights.Add(weightsAndBiasesToSet[currentIndex]);
+                        currentIndex++;
                     }
-
-                    c.Add(n.bias);
+                    neuron.SetBias(weightsAndBiasesToSet[currentIndex]);
+                    currentIndex++;
                 }
             }
-
-            return c;
-        }
-
-        public void setChromosome(List<double> genes)
-        {
-            int x = 0;
-            foreach (Layer l in layers)
-            {
-                foreach (Neuron n in l.neurons)
-                {
-                    for (int i = 0; i < n.weights.Count; i++)
-                    {
-                        n.weights[i] = genes[x];
-                        x++;
-                    }
-
-                    n.bias = genes[x];
-                    x++;
-                }
-            }
+            
         }
     }
 }

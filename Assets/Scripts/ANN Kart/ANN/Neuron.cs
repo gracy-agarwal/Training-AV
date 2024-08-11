@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using ANN_Kart.ANN;
+using ANN_Kart.ANN.Activation_Functions;
 using UnityEngine;
 
 public class Neuron
@@ -13,6 +14,7 @@ public class Neuron
 
 	public List<float> Weights => weights;
 	public float Bias => bias;
+	public int NumberOfInputs => numberOfInputs;
 
 	public Neuron(NeuronType neuronType, int numberOfInputs)
 	{
@@ -56,4 +58,17 @@ public class Neuron
 	public void SetWeightAtIndex(int weightIndex, float weightToSet) => weights[weightIndex] = weightToSet;
 
 	public void SetBias(float biasToSet) => bias = biasToSet;
+
+	public float CalculateOutput(List<float> inputValues)
+	{
+		float weightedSum = 0;
+
+		for (int i=0; i<weights.Count; i++)
+			weightedSum += inputValues[i] * weights[i];
+
+		weightedSum += bias;
+		IActivationFunction activationFunction = new TangentFunction();
+		weightedSum = activationFunction.CalculateOutput(weightedSum);
+		return weightedSum;
+	}
 }

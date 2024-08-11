@@ -2,6 +2,6 @@
 {
     public interface IActivationFunction
     {
-        public double CalculateOutput(float weightedSum);
+        public float CalculateOutput(float weightedSum);
     }
 }

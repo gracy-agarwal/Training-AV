@@ -41,4 +41,16 @@ public class Layer
 				return NeuronType.INPUT;
 		}
 	}
+
+	public List<float> CalculateOutput(List<float> inputValues)
+	{
+		if (layerType == LayerType.INPUT)
+			return inputValues;
+
+		List<float> outputValues = new List<float>();
+		foreach (Neuron neuron in neurons)
+			outputValues.Add(neuron.CalculateOutput(inputValues));
+
+		return outputValues;
+	}
 }

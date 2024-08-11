@@ -2,7 +2,7 @@
 {
     public class ReLuFunction : IActivationFunction
     {
-        public double CalculateOutput(float weightedSum)
+        public float CalculateOutput(float weightedSum)
         {
             if (weightedSum > 0) 
                 return weightedSum;

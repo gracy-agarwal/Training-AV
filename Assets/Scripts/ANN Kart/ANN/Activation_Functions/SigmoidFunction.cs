@@ -2,10 +2,10 @@
 {
     public class SigmoidFunction : IActivationFunction
     {
-        public double CalculateOutput(float weightedSum)
+        public float CalculateOutput(float weightedSum)
         {
             double k = System.Math.Exp(-1 * weightedSum);
-            return 1 / (1.0f + k);
+            return 1.0f / (float) (1.0f + k);
         }
     }
 }

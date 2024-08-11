@@ -2,10 +2,10 @@
 {
     public class TangentFunction : IActivationFunction
     {
-        public double CalculateOutput(float weightedSum)
+        public float CalculateOutput(float weightedSum)
         {
             double k = System.Math.Exp(-2 * weightedSum);
-            return 2 / (1.0f + k) - 1;
+            return 2 / (float)(1.0f + k) - 1;
         }
     }
 }
