@@ -10,12 +10,15 @@ namespace ANN_Kart.ANN
         public int learningRate;
         public int NumberOfLayers => Ann_Structure.Count;
 
-        public int GetNumberOfNeuronAtLayer(int layerIndex)
+        public int GetNumberOfNeuronAtLayer(int layerIndex) => Ann_Structure[layerIndex].numberOfNeurons;
+        
+        public int GetNumberOfInputsPerNeuronAtLayer(int layerIndex)
         {
-            if (layerIndex < 0)
+            if (layerIndex == 0)
                 return 1;
-            return Ann_Structure[layerIndex].numberOfNeurons;
-        } 
+            
+            return Ann_Structure[layerIndex - 1].numberOfNeurons;
+        }
     }
 
     [System.Serializable]
