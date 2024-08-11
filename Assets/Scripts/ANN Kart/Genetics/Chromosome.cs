@@ -4,6 +4,7 @@ public class Chromosome
 {
     private List<float> genes;
     public int Length => genes.Count;
+    public List<float> Genes => genes;
 
     public Chromosome(int length) => InitializeGenes(length);
 

@@ -18,7 +18,8 @@ public class Layer
 	private void InitializeVariables(LayerType layerType, int numberOfNeurons)
 	{
 		this.layerType = layerType;
-		this.numberOfNeurons = numberOfNeurons;	
+		this.numberOfNeurons = numberOfNeurons;
+		neurons = new List<Neuron>();
 	} 
 
 	public void InitializeNeurons(int numberOfInputsPerNeuron)
