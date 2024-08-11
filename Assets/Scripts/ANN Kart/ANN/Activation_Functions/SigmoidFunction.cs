@@ -4,8 +4,8 @@
     {
         public double CalculateOutput(float weightedSum)
         {
-            double k = System.Math.Exp(weightedSum);
-            return k / (1.0f + k);
+            double k = System.Math.Exp(-1 * weightedSum);
+            return 1 / (1.0f + k);
         }
     }
 }
