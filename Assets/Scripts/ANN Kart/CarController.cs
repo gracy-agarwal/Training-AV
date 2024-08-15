@@ -23,6 +23,9 @@ namespace ANN_Kart.Genetics
         private Vector3 previousPosition;
         private float overallFitness;
 
+        public CarState CurrentState => currentState;
+        public float OverallFitness => overallFitness;
+
         private void Awake()
         {
             ann = new ANN.ANN(annData);
@@ -30,15 +33,11 @@ namespace ANN_Kart.Genetics
             currentState = CarState.ALIVE;
             // Weights are being randomized until now.
             // For the first population it is fine.
-            // For the next Population the chromosome will need to be injected while...
-            // ... initializing the CarController.
+            // For the next Population the chromosome will need to be injected while initializing the CarController.
         }
 
-        private void Update()
+        public void UpdateCar()
         {
-            if (currentState == CarState.DEAD) 
-                return;
-
             List<float> inputs = GetSensorInputs();
             List<float> outputs = ann.CalculateOutput(inputs);
 
@@ -115,6 +114,7 @@ namespace ANN_Kart.Genetics
         
         void OnCollisionEnter(Collision collidedObject)
         {
+            Debug.Log("Collided with some object", collidedObject.gameObject);
             if (collidedObject.transform.GetComponent<Wall>())
             {
                 Debug.Log("Collided With Wall");

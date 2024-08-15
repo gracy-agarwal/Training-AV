@@ -9,6 +9,5 @@ namespace ANN_Kart.Genetics
         public float visibleDistance = 50;
         [FormerlySerializedAs("Speed")] [FormerlySerializedAs("speed")] public float TranslationSpeed = 50.0F;
         [FormerlySerializedAs("rotationSpeed")] public float RotationSpeed = 100.0F;
-        
     }
 }
