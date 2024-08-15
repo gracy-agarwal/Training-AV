@@ -21,4 +21,4 @@ MonoBehaviour:
     numberOfNeurons: 5
   - layerType: 2
     numberOfNeurons: 2
-  learningRate: 0
+  learningRate: 0.5
