@@ -5,7 +5,6 @@ using UnityEngine;
 
 public class Layer
 {
-	// TODO: Layer Type will be used later while training the weights of neuron for separating the input layer.
 	private LayerType layerType;
 	private int numberOfNeurons;
 	private List<Neuron> neurons;

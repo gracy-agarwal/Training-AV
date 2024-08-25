@@ -1,11 +1,13 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using ANN_Kart.ANN;
 using ANN_Kart.Genetics;
 using ANN_Kart.Genetics.Crossover;
 using ANN_Kart.Genetics.Genetics;
 using ANN_Kart.Genetics.Genetics.Parent_Selection;
 using ANN_Kart.Genetics.Utility;
+using Unity.VisualScripting.Antlr3.Runtime.Tree;
 using UnityEngine;
 
 public class PopulationManager : MonoBehaviour
@@ -17,6 +19,7 @@ public class PopulationManager : MonoBehaviour
     private int currentGeneration;
     private int carsSpawnedInCurrentPopulation;
     private int derivedCarDataIndex;
+    private float previousBestFitnessValue;
     private IterationState currentStateOfIteration;
     private List<CarPerformanceData> currentPopulation;
     private List<CarController> currentIteration;
@@ -34,6 +37,7 @@ public class PopulationManager : MonoBehaviour
         currentGeneration = 1;
         carsSpawnedInCurrentPopulation = 0;
         derivedCarDataIndex = 0;
+        previousBestFitnessValue = 0;
         currentPopulation = new List<CarPerformanceData>();
         recordedPopulationData = new List<List<CarPerformanceData>>();
         currentIteration = new List<CarController>();
@@ -134,10 +138,12 @@ public class PopulationManager : MonoBehaviour
 
     private void CheckForEndOfSimulation()
     {
-        if (currentGeneration <= 25)
+        if (currentGeneration <= 20)
             return;
-        // Save Data on disk from recordedPopulationData.
-        // Application.Quit();
+
+        SavePopulationData();
+        
+        Application.Quit();
     }
     
     // TODO: should create a list of chromosomes from the current population and store them in a list to be used for initializing next generation.
@@ -146,6 +152,8 @@ public class PopulationManager : MonoBehaviour
         newGenerationData.Clear();
         List<CarPerformanceData> parentPool = new List<CarPerformanceData>();
         List<CarPerformanceData> sortedPopulationData = currentPopulation.OrderByDescending(data => data.FitnessValue).ToList();
+
+        previousBestFitnessValue = sortedPopulationData[0].FitnessValue;
         
         // Select top 10 cars for the next population (without any changes) and add them to the new generation data.
         for (int i = 0; i < 10; i++)
@@ -177,5 +185,35 @@ public class PopulationManager : MonoBehaviour
             newGenerationData.Add(offspring[0]);
             newGenerationData.Add(offspring[1]);
         }
+    }
+    
+    // Method to save population data to disk
+    private void SavePopulationData()
+    {
+        // Define the path to save the data
+        string filePath = Application.persistentDataPath + "/population_data.txt";
+
+        // Create a list to store formatted data
+        List<string> dataLines = new List<string>();
+
+        // Format the recorded population data into lines of text
+        for (int generationIndex = 0; generationIndex < recordedPopulationData.Count; generationIndex++)
+        {
+            dataLines.Add($"Generation {generationIndex + 1}:");
+
+            foreach (CarPerformanceData carData in recordedPopulationData[generationIndex])
+            {
+                string dataLine = $"Fitness: {carData.FitnessValue}, Chromosome: {string.Join(",", carData.Chromosome.Genes)}";
+                dataLines.Add(dataLine);
+            }
+
+            dataLines.Add(""); // Add a blank line between generations for readability
+        }
+
+        // Write the data to a file
+        System.IO.File.WriteAllLines(filePath, dataLines.ToArray());
+
+        // Optionally log the save location
+        Debug.Log("Population data saved to: " + filePath);
     }
 }

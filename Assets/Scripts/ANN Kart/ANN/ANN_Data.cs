@@ -7,8 +7,6 @@ namespace ANN_Kart.ANN
     public class ANN_Data : ScriptableObject
     {
         public List<LayerData> Ann_Structure;
-        // TODO: Is this needed ???
-        public float learningRate = 0.5f;
         public int NumberOfLayers => Ann_Structure.Count;
 
         public LayerType GetLayerType(int layerIndex) => Ann_Structure[layerIndex].layerType;
