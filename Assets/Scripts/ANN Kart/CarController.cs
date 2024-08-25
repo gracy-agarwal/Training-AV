@@ -106,8 +106,10 @@ namespace ANN_Kart.Genetics
         {
             List<float> currentWeightsAnsBiases = ann.GetWeightsAnsBiases();
             
-            for (int i = 0; i < currentWeightsAnsBiases.Count; i++)
-                chromosome.SetGeneAtPosition(i, currentWeightsAnsBiases[i]);
+            chromosome.SetGenes(currentWeightsAnsBiases);
+            
+            /*for (int i = 0; i < currentWeightsAnsBiases.Count; i++)
+                chromosome.SetGeneAtPosition(i, currentWeightsAnsBiases[i]);*/
             
             return chromosome;
         }
