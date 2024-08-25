@@ -138,7 +138,7 @@ public class PopulationManager : MonoBehaviour
 
     private void CheckForEndOfSimulation()
     {
-        if (currentGeneration <= 20)
+        if (currentGeneration <= 10)
             return;
 
         SavePopulationData();
