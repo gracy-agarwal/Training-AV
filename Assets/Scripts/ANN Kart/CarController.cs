@@ -31,6 +31,7 @@ namespace ANN_Kart.Genetics
             ann = new ANN.ANN(annData);
             previousPosition = transform.position;
             currentState = CarState.ALIVE;
+            chromosome = new Chromosome(ann.GetChromosomeLength());
             // Weights are being randomized until now.
             // For the first population it is fine.
             // For the next Population the chromosome will need to be injected while initializing the CarController.
@@ -101,20 +102,24 @@ namespace ANN_Kart.Genetics
             overallFitness = FitnessCalculator.CalculateFitness(lifetime, distanceTravelled);
         }
 
-        public Chromosome GetChromosome()
+        public Chromosome GetChromosomeFromANN()
         {
-            List<float> genes = ann.GetWeightsAnsBiases();
-            Chromosome chromosome = new Chromosome(genes.Count);
-            for (int i = 0; i < genes.Count; i++)
-                chromosome.SetGeneAtPosition(i, genes[i]);
+            List<float> currentWeightsAnsBiases = ann.GetWeightsAnsBiases();
+            
+            for (int i = 0; i < currentWeightsAnsBiases.Count; i++)
+                chromosome.SetGeneAtPosition(i, currentWeightsAnsBiases[i]);
+            
             return chromosome;
         }
 
-        public void SetChromosome(Chromosome chromosome) => ann.SetWeightsAndBiases(chromosome.Genes);
+        public void SetChromosome(List<float> genesToSet)
+        {
+            chromosome.SetGenes(genesToSet);
+            ann.SetWeightsAndBiases(chromosome.Genes);  
+        }
         
         void OnCollisionEnter(Collision collidedObject)
         {
-            Debug.Log("Collided with some object", collidedObject.gameObject);
             if (collidedObject.transform.GetComponent<Wall>())
             {
                 Debug.Log("Collided With Wall");

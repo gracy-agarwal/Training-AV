@@ -93,7 +93,23 @@ namespace ANN_Kart.ANN
                     currentIndex++;
                 }
             }
+        }
+
+        public int GetChromosomeLength()
+        {
+            int chromosomeLength = 0;
             
+            foreach (Layer layer in layers)
+            {
+                foreach (Neuron neuron in layer.Neurons)
+                {
+                    foreach (float weight in neuron.Weights)
+                        chromosomeLength++;
+                    chromosomeLength++;
+                }
+            }
+
+            return chromosomeLength;
         }
     }
 }

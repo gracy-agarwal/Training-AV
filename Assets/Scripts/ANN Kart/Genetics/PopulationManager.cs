@@ -59,7 +59,12 @@ public class PopulationManager : MonoBehaviour
             SpawnNextIteration();
     }
 
-    private bool CurrentIterationIsActive() => currentIteration.TrueForAll(car => car.CurrentState == CarState.DEAD);
+    private bool CurrentIterationIsActive()
+    {
+        if (currentIteration.Count == 0)
+            return false;
+        return !currentIteration.TrueForAll(car => car.CurrentState == CarState.DEAD);  
+    } 
     
     private void UpdateAllActiveCars()
     {
@@ -77,11 +82,22 @@ public class PopulationManager : MonoBehaviour
             CarController newCar = Instantiate(populationData.carPrefab, populationData.startingPosition, transform.rotation);
             currentIteration.Add(newCar);
             carsSpawnedInCurrentPopulation++;
+
+            // If it's not the first generation then the weights and biases (chromosome) must not be random but derived from previous generation.
+            if (currentGeneration != 0)
+            {
+                // TODO: Recorded Chromosome need to be used here.
+                // TODO: The Recorded data will be received through crossover and mutation algorithms somehow.
+                // newCar.SetChromosome();
+            }
         }
     }
 
     private void ResetPreviousIteration()
     {
+        if (currentIteration.Count == 0)
+            return;
+        
         foreach (CarController car in currentIteration)
         {
             currentPopulation.Add(GetPerformanceDataForCar(car));
@@ -94,7 +110,7 @@ public class PopulationManager : MonoBehaviour
     {
         CarPerformanceData newPerformanceData;
         newPerformanceData.FitnessValue = car.OverallFitness;
-        newPerformanceData.Chromosome = car.GetChromosome();
+        newPerformanceData.Chromosome = car.GetChromosomeFromANN();
         return newPerformanceData;
     }
 

@@ -1,5 +1,10 @@
 ﻿namespace ANN_Kart.ANN
 {
+    /// <summary>
+    /// Treats weights and biases of a car as a long string.
+    /// Contains helper functions to capture weights of given ANN in a string which may be used to store data on disk.
+    /// For a given string (read from disk), can load the weights and biases into the given ANN.
+    /// </summary>
     public static class WeightManager
     {
         public static string CaptureWeights(ANN ann)

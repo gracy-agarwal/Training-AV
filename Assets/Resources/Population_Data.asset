@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6405d08d1d0740afacc04bcd5d5f4aa6, type: 3}
+  m_Name: Population_Data
+  m_EditorClassIdentifier: 
+  carPrefab: {fileID: 6288395203421334181, guid: 5ae7a98a76604c14f8ce356ceebc3208, type: 3}
+  PopulationSize: 50
+  IterationSize: 5
+  MaximumGeneration: 20
+  TrialTime: 10
+  startingPosition: {x: 0, y: 1, z: -45}
+  endPosition: {x: 0, y: 1, z: 45}

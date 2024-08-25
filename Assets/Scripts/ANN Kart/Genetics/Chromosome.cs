@@ -8,7 +8,9 @@ public class Chromosome
 
     public Chromosome(int length) => InitializeGenes(length);
 
-    private void InitializeGenes(int length) => genes = new List<float>(length); 
+    private void InitializeGenes(int length) => genes = new List<float>(length);
+
+    public void SetGenes(List<float> genesToSet) => genes = genesToSet;
     
     public void SetGeneAtPosition(int position, float value) => genes[position] = value;
 
