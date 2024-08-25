@@ -1,7 +1,9 @@
-﻿namespace ANN_Kart.Genetics.Crossover
+﻿using System.Collections.Generic;
+
+namespace ANN_Kart.Genetics.Crossover
 {
     public interface ICrossover
     {
-        public void Crossover();
+        public List<Chromosome> Crossover(Chromosome parent1, Chromosome parent2);
     }
 }

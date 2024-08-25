@@ -4,10 +4,19 @@ namespace ANN_Kart.Genetics.Utility
 {
     public static class Mutation
     {
-        public static void Mutate(Chromosome chromosome)
+        public static Chromosome Mutate(Chromosome chromosome)
         {
-            for (int i = 0; i < chromosome.Length; i++)
-                chromosome.SetGeneAtPosition(i, Random.Range(-1f, 1f));
+            float mutationRate = 0.01f; // Adjust this rate as needed
+
+            for (int i = 0; i < chromosome.Genes.Count; i++)
+            {
+                if (UnityEngine.Random.value < mutationRate)
+                {
+                    chromosome.Genes[i] = UnityEngine.Random.Range(-1f, 1f); // Example mutation: randomize the gene
+                }
+            }
+
+            return chromosome;
         }
     }
 }

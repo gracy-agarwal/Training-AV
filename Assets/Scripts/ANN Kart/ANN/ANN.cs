@@ -59,7 +59,7 @@ namespace ANN_Kart.ANN
 
         private bool IsInputCountValid(List<float> inputValues) => inputValues.Count == annData.GetNumberOfNeuronAtLayer(0);
 
-        public List<float> GetWeightsAnsBiases()
+        public List<float> GetWeightsAndBiases()
         {
             List<float> weightsAndBiases = new List<float>();
             
@@ -86,10 +86,12 @@ namespace ANN_Kart.ANN
                     neuron.Weights.Clear();
                     for (int i = 0; i < neuron.NumberOfInputs; i++)
                     {
+                        Debug.Log("List Count: " + weightsAndBiasesToSet.Count + "Index: " + currentIndex);
                         neuron.Weights.Add(weightsAndBiasesToSet[currentIndex]);
                         currentIndex++;
                     }
                     neuron.SetBias(weightsAndBiasesToSet[currentIndex]);
+                    Debug.Log("List Count: " + weightsAndBiasesToSet.Count + "Index: " + currentIndex);
                     currentIndex++;
                 }
             }

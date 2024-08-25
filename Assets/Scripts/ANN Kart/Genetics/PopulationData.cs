@@ -11,6 +11,7 @@ namespace ANN_Kart.Genetics.Genetics
         public int MaximumGeneration = 20;
         // maximum time for a population to be alive
         public float TrialTime = 10.0f;
+        public int numberOfParentsToSelect = 20;
         public Vector3 startingPosition;
         public Vector3 endPosition;
     }

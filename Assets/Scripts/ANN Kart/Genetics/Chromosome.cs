@@ -6,9 +6,11 @@ public class Chromosome
     public int Length => genes.Count;
     public List<float> Genes => genes;
 
+    public Chromosome() => genes = new List<float>();
+    
     public Chromosome(int length) => InitializeGenes(length);
 
-    private void InitializeGenes(int length) => genes = new List<float>(length);
+    private void InitializeGenes(int length) => genes = new List<float>(new float[length]); // Initialize with default values (0.0f)
 
     public void SetGenes(List<float> genesToSet) => genes = genesToSet;
     

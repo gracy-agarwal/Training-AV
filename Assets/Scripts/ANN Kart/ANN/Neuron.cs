@@ -34,19 +34,24 @@ public class Neuron
 	private void InitializeBias()
 	{
 		if (neuronType == NeuronType.INPUT)
-			return;
-		
-		bias = Random.Range(-1f,1f);
+			bias = 0;
+		else 
+			bias = Random.Range(-1f,1f);
 	} 
+	
 	private void InitializeWeights()
 	{
-		if (neuronType == NeuronType.INPUT)
-			return;
-		
+		// Initialize weights even for the input layer, setting them to 0.
 		float weightRange = CalculateWeightRange();
 		for(int i = 0; i < numberOfInputs; i++)
-			weights.Add(Random.Range(-weightRange,weightRange));
+		{
+			if (neuronType == NeuronType.INPUT)
+				weights.Add(0f);  // Set input neuron weights to 0.
+			else
+				weights.Add(Random.Range(-weightRange, weightRange));
+		}
 	}
+
 
 	/// <summary>
 	/// This function calculates a weight range based on the number of inputs to the neuron.

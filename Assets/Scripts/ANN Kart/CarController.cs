@@ -104,7 +104,7 @@ namespace ANN_Kart.Genetics
 
         public Chromosome GetChromosomeFromANN()
         {
-            List<float> currentWeightsAnsBiases = ann.GetWeightsAnsBiases();
+            List<float> currentWeightsAnsBiases = ann.GetWeightsAndBiases();
             
             chromosome.SetGenes(currentWeightsAnsBiases);
             
@@ -124,7 +124,7 @@ namespace ANN_Kart.Genetics
         {
             if (collidedObject.transform.GetComponent<Wall>())
             {
-                Debug.Log("Collided With Wall");
+                // Debug.Log("Collided With Wall");
                 currentState = CarState.DEAD;
             }
         }
